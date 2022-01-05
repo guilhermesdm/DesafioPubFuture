@@ -24,3 +24,10 @@ Route.get('/contas', 'ContasController.index')
 Route.post('/contas', 'ContasController.store')
 Route.delete('/contas/:id', 'ContasController.destroy')
 Route.put('contas/:id', 'ContasController.update' )
+
+Route.post('/receitas', 'ReceitasController.store')
+Route.get('/receitas', 'ReceitasController.index')
+Route.delete('/receitas/:id', 'ReceitasController.destroy')
+Route.put('/receitas/:id', 'ReceitasController.update')
+
+Route.get('/despesas', 'DespesasController.index')

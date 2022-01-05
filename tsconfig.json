@@ -11,6 +11,11 @@
     "outDir": "build",
     "rootDir": "./",
     "sourceMap": true,
+    "target": "ES6",
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "paths": {
       "App/*": [
         "./app/*"
