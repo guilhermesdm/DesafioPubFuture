@@ -31,3 +31,6 @@ Route.delete('/receitas/:id', 'ReceitasController.destroy')
 Route.put('/receitas/:id', 'ReceitasController.update')
 
 Route.get('/despesas', 'DespesasController.index')
+Route.post('/despesas', 'DespesasController.store')
+Route.delete('/despesas/:id', 'DespesasController.destroy')
+Route.put('/despesas/:id', 'DespesasController.update')
