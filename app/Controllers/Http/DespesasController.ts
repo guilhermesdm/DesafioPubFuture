@@ -4,18 +4,18 @@ import DespesaService from 'App/Services/DespesaService';
 export default class DespesasController {
   public async store({ request, response }: HttpContextContract) {
     const data = request.only([
-      'valor',
+      'valorDespesa',
       'dataPagamento',
       'dataPagamentoEsperado',
       'contaId',
       'tipoDespesaId'
     ])
     const despesa = await DespesaService.criar(
-      data.valor,
+      data.valorDespesa,
       data.dataPagamento,
       data.dataPagamentoEsperado,
-      data.tipoDespesaId,
-      data.contaId
+      data.contaId,
+      data.tipoDespesaId
       )
     return response.send(despesa)
   }
@@ -34,7 +34,7 @@ export default class DespesasController {
   public async update({ request, response }: HttpContextContract) {
     const { id } = request.params()
     const data = request.only([
-      'valor',
+      'valorDespesa',
       'dataPagamento',
       'dataPagamentoEsperado',
       'contaId',
@@ -43,7 +43,7 @@ export default class DespesasController {
 
     const despesa = await DespesaService.editar(
       id,
-      data.valor,
+      data.valorDespesa,
       data.dataPagamento,
       data.dataPagamentoEsperado,
       data.contaId,

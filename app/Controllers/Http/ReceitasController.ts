@@ -8,15 +8,15 @@ export default class ReceitasController {
       'dataRecebimentoEsperado',
       'tipoReceitaId',
       'descricao',
-      'valor',
+      'valorReceita',
       'contaId'
     ])
     const receita = await ReceitaService.criar(
       data.dataRecebimento,
       data.dataRecebimentoEsperado,
-      data.descricao,
       data.tipoReceitaId,
-      data.valor,
+      data.descricao,
+      data.valorReceita,
       data.contaId
       )
     return response.send(receita)
@@ -40,7 +40,7 @@ export default class ReceitasController {
       'dataRecebimentoEsperado',
       'tipoReceitaId',
       'descricao',
-      'valor',
+      'valorReceita',
       'contaId'
     ])
 
@@ -50,7 +50,7 @@ export default class ReceitasController {
       data.dataRecebimentoEsperado,
       data.tipoReceitaId,
       data.descricao,
-      data.valor,
+      data.valorReceita,
       data.contaId
       )
     return response.send(conta)

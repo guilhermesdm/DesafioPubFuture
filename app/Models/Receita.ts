@@ -9,13 +9,13 @@ export default class Receita extends BaseModel {
   public id: number
 
   @column({ columnName: 'valor' })
-  public valor: number
+  public valorReceita: number
 
   @column({ columnName: 'data_recebimento' })
-  public dataRecebimento: string
+  public dataRecebimento: Date
 
   @column({ columnName: 'data_recebimento_esperado' })
-  public dataRecebimentoEsperado: string
+  public dataRecebimentoEsperado: Date
 
   @column({ columnName: 'descricao' })
   public descricao: string

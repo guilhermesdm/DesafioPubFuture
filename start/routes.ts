@@ -23,7 +23,8 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/contas', 'ContasController.index')
 Route.post('/contas', 'ContasController.store')
 Route.delete('/contas/:id', 'ContasController.destroy')
-Route.put('contas/:id', 'ContasController.update' )
+Route.put('/contas/:id', 'ContasController.update' )
+Route.post('/contas/transferir/:id', 'ContasController.transfer')
 
 Route.post('/receitas', 'ReceitasController.store')
 Route.get('/receitas', 'ReceitasController.index')

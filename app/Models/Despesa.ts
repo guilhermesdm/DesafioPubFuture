@@ -9,13 +9,13 @@ export default class Despesa extends BaseModel {
   public id: number
 
   @column({ columnName: 'valor' })
-  public valor: number
+  public valorDespesa: number
 
   @column({ columnName: 'data_pagamento' })
-  public dataPagamento: string
+  public dataPagamento: Date
 
   @column({ columnName: 'data_pagamento_esperado' })
-  public dataPagamentoEsperado: string
+  public dataPagamentoEsperado: Date
 
   @column({ columnName: 'conta_id' })
   public contaId: number

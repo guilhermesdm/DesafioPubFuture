@@ -11,7 +11,7 @@ export default class ContaService {
   }
 
   public static async listar() {
-    const contas = await Conta.query().preload('tipoConta')
+    const contas = await Conta.query().preload('tipoConta').preload('despesas').preload('receitas')
     return contas
   }
 
@@ -19,11 +19,32 @@ export default class ContaService {
     await Conta.query().where('id', id).delete()
   }
 
-  public static async editar(id: number, tipoContaId: number, instituicao: string) {
+  public static async editar(
+    id: number,
+    tipoContaId: number,
+    instituicao: string
+  ){
     const conta = await Conta.findOrFail(id)
     conta.tipoContaId = tipoContaId;
     conta.instituicao = instituicao;
     await conta.save()
     return conta
+  }
+
+  public static async transferir(
+    id: number,
+    contaId: number,
+    saldo: number
+  ){
+    const conta = await Conta.findOrFail(id)
+    const contaAlvo = await Conta.findOrFail(contaId)
+    if (conta.saldo >= saldo) {
+      conta.saldo = conta.saldo - saldo
+      contaAlvo.saldo = contaAlvo.saldo + saldo
+      await conta.save()
+      await contaAlvo.save()
+    } else {
+      throw new Error('Saldo insuficiente')
+    }
   }
 }

@@ -32,4 +32,19 @@ export default class ContasController {
     const conta = await ContaService.editar(id, data.tipoContaId, data.instituicao)
     return response.send(conta)
   }
+
+  public async transfer( { request, response }: HttpContextContract ) {
+    const { id } = request.params()
+    const data = request.only([
+      'contaId',
+      'saldo'
+    ])
+
+    try {
+      const conta = await ContaService.transferir(id, data.contaId, data.saldo)
+      return response.send(conta)
+    } catch (error) {
+      return response.status(400).send( { message: error.message } )
+    }
+  }
 }

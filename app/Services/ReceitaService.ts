@@ -1,22 +1,28 @@
+import Conta from "App/Models/Conta"
 import Receita from "App/Models/Receita"
 
 export default class ReceitaService {
   public static async criar(
-    dataRecebimento: string,
-    dataRecebimentoEsperado: string,
-    descricao: string,
+    dataRecebimento: Date,
+    dataRecebimentoEsperado: Date,
     tipoReceitaId: number,
-    valor: number,
+    descricao: string,
+    valorReceita: number,
     contaId: number
   ){
     const receita = new Receita()
     receita.dataRecebimento = dataRecebimento
     receita.dataRecebimentoEsperado = dataRecebimentoEsperado
-    receita.descricao = descricao
     receita.tipoReceitaId = tipoReceitaId
-    receita.valor = valor
+    receita.descricao = descricao
+    receita.valorReceita = valorReceita
     receita.contaId = contaId
     await receita.save()
+
+    const conta = await Conta.findOrFail(receita.contaId)
+    conta.saldo += receita.valorReceita
+    await conta.save()
+
     return receita
   }
 
@@ -31,11 +37,11 @@ export default class ReceitaService {
 
   public static async editar(
     id: number,
-    dataRecebimento: string,
-    dataRecebimentoEsperado: string,
+    dataRecebimento: Date,
+    dataRecebimentoEsperado: Date,
     descricao: string,
     tipoReceitaId: number,
-    valor: number,
+    valorReceita: number,
     contaId: number
   ){
     const receita = await Receita.findOrFail(id)
@@ -43,7 +49,7 @@ export default class ReceitaService {
     receita.dataRecebimentoEsperado = dataRecebimentoEsperado
     receita.descricao = descricao
     receita.tipoReceitaId = tipoReceitaId
-    receita.valor = valor
+    receita.valorReceita = valorReceita
     receita.contaId = contaId
     await receita.save()
     return receita

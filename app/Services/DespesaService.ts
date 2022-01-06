@@ -1,20 +1,26 @@
+import Conta from "App/Models/Conta"
 import Despesa from "App/Models/Despesa"
 
 export default class DespesaService {
   public static async criar(
-    valor: number,
-    dataPagamento: string,
-    dataPagamentoEsperado: string,
+    valorDespesa: number,
+    dataPagamento: Date,
+    dataPagamentoEsperado: Date,
     contaId: number,
     tipoDespesaId: number
   ){
     const despesa = new Despesa()
-    despesa.valor = valor
+    despesa.valorDespesa = valorDespesa
     despesa.dataPagamento = dataPagamento
     despesa.dataPagamentoEsperado = dataPagamentoEsperado
     despesa.contaId = contaId
     despesa.tipoDespesaId = tipoDespesaId
     await despesa.save()
+
+    const conta = await Conta.findOrFail(despesa.contaId)
+    conta.saldo -= despesa.valorDespesa
+    await conta.save()
+
     return despesa
   }
 
@@ -29,14 +35,14 @@ export default class DespesaService {
 
   public static async editar(
     id: number,
-    valor: number,
-    dataPagamento: string,
-    dataPagamentoEsperado: string,
+    valorDespesa: number,
+    dataPagamento: Date,
+    dataPagamentoEsperado: Date,
     contaId: number,
     tipoDespesaId: number
   ){
     const despesa = await Despesa.findOrFail(id)
-    despesa.valor = valor
+    despesa.valorDespesa = valorDespesa
     despesa.dataPagamento = dataPagamento
     despesa.dataPagamentoEsperado = dataPagamentoEsperado
     despesa.contaId = contaId

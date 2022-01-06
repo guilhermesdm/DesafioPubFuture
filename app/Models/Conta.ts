@@ -1,4 +1,6 @@
-import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, belongsTo, BelongsTo, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Despesa from './Despesa';
+import Receita from './Receita';
 import TipoConta from './TipoConta';
 
 export default class Conta extends BaseModel {
@@ -18,4 +20,11 @@ export default class Conta extends BaseModel {
 
   @belongsTo(() => TipoConta, { foreignKey: 'tipoContaId' })
   public tipoConta: BelongsTo<typeof TipoConta>
+
+  @hasMany(() => Despesa, { foreignKey: 'contaId' })
+  public despesas: HasMany<typeof Despesa>
+
+  @hasMany(() => Receita, { foreignKey: 'contaId' })
+  public receitas: HasMany<typeof Receita>
+
 }
