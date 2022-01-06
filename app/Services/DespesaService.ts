@@ -24,8 +24,25 @@ export default class DespesaService {
     return despesa
   }
 
-  public static async listar() {
-    const despesas = await Despesa.query().preload('tipoDespesa')
+  public static async listar(
+    dataInicial: Date,
+    dataFinal: Date,
+    tipoDespesa: number
+  ){
+    const despesas = await Despesa
+      .query()
+      .preload('tipoDespesa')
+      .where((query) => {
+        if( dataInicial && dataFinal ) {
+          query
+            .where('dataPagamento', '>=', dataInicial)
+            .andWhere('dataPagamento', '<=', dataFinal)
+        }
+        if ( tipoDespesa ) {
+          query
+            .where('tipoDespesaId', tipoDespesa)
+        }
+      })
     return despesas
   }
 

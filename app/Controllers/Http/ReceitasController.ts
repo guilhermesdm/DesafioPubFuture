@@ -22,8 +22,9 @@ export default class ReceitasController {
     return response.send(receita)
   }
 
-  public async index({ response }: HttpContextContract) {
-    const receitas = await ReceitaService.listar()
+  public async index({ request, response }: HttpContextContract) {
+    const { dataInicial, dataFinal, tipoReceita } = request.qs()
+    const receitas = await ReceitaService.listar(dataInicial, dataFinal, tipoReceita)
     return response.send(receitas)
   }
 

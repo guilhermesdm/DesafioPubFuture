@@ -26,8 +26,25 @@ export default class ReceitaService {
     return receita
   }
 
-  public static async listar() {
-    const receitas = await Receita.query().preload('tipoReceita')
+  public static async listar(
+    dataInicial: Date,
+    dataFinal: Date,
+    tipoReceita: number
+  ){
+    const receitas = await Receita
+      .query()
+      .preload('tipoReceita')
+      .where((query) => {
+        if ( dataInicial && dataFinal ) {
+          query
+            .where('dataRecebimento', '>=', dataInicial)
+            .andWhere('dataRecebimento', '<=', dataFinal)
+        }
+        if ( tipoReceita ) {
+          query
+            .where('tipoReceitaId', tipoReceita)
+        }
+      })
     return receitas
   }
 

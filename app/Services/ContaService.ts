@@ -10,8 +10,12 @@ export default class ContaService {
     return conta
   }
 
-  public static async listar() {
-    const contas = await Conta.query().preload('tipoConta').preload('despesas').preload('receitas')
+  public static async listar(){
+    const contas = await Conta
+      .query()
+      .preload('tipoConta')
+      .preload('despesas')
+      .preload('receitas')
     return contas
   }
 
