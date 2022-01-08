@@ -48,7 +48,14 @@ export default class ReceitaService {
     return receitas
   }
 
-  public static async remove(id: number) {
+  public static async remove(
+    id: number
+  ){
+    const receita = await Receita.findOrFail(id)
+    const conta = await Conta.findOrFail(receita.contaId)
+    conta.saldo = conta.saldo - receita.valorReceita
+    await conta.save()
+
     await Receita.query().where('id', id).delete()
   }
 
@@ -62,6 +69,8 @@ export default class ReceitaService {
     contaId: number
   ){
     const receita = await Receita.findOrFail(id)
+    const valorReceitaAntigo = receita.valorReceita
+
     receita.dataRecebimento = dataRecebimento
     receita.dataRecebimentoEsperado = dataRecebimentoEsperado
     receita.descricao = descricao
@@ -69,6 +78,11 @@ export default class ReceitaService {
     receita.valorReceita = valorReceita
     receita.contaId = contaId
     await receita.save()
+
+    const conta = await Conta.findOrFail(receita.contaId)
+    conta.saldo = conta.saldo + (receita.valorReceita - valorReceitaAntigo)
+    await conta.save()
+
     return receita
   }
 }

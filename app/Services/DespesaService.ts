@@ -46,7 +46,14 @@ export default class DespesaService {
     return despesas
   }
 
-  public static async remove(id: number) {
+  public static async remove(
+    id: number,
+  ){
+    const despesa = await Despesa.findOrFail(id)
+    const conta = await Conta.findOrFail(despesa.contaId)
+    conta.saldo = conta.saldo + despesa.valorDespesa
+    await conta.save()
+
     await Despesa.query().where('id', id).delete()
   }
 
@@ -59,12 +66,19 @@ export default class DespesaService {
     tipoDespesaId: number
   ){
     const despesa = await Despesa.findOrFail(id)
+    const valorDespesaAntigo = despesa.valorDespesa
+
     despesa.valorDespesa = valorDespesa
     despesa.dataPagamento = dataPagamento
     despesa.dataPagamentoEsperado = dataPagamentoEsperado
     despesa.contaId = contaId
     despesa.tipoDespesaId = tipoDespesaId
     await despesa.save()
+
+    const conta = await Conta.findOrFail(despesa.contaId)
+    conta.saldo = conta.saldo - (despesa.valorDespesa - valorDespesaAntigo)
+    await conta.save()
+
     return despesa
   }
 }

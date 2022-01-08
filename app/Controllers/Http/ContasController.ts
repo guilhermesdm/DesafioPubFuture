@@ -16,6 +16,12 @@ export default class ContasController {
     return response.send(contas)
   }
 
+  public async oneIndex({ request, response }: HttpContextContract) {
+    const { id } = request.params()
+    const conta = await ContaService.listarUm(id)
+    return response.send(conta)
+  }
+
   public async destroy({ request, response }: HttpContextContract) {
     const { id } = request.params()
     await ContaService.remove(id)

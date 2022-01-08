@@ -39,21 +39,20 @@ export default class ReceitasController {
     const data = request.only([
       'dataRecebimento',
       'dataRecebimentoEsperado',
-      'tipoReceitaId',
       'descricao',
+      'tipoReceitaId',
       'valorReceita',
       'contaId'
     ])
-
     const conta = await ReceitaService.editar(
       id,
       data.dataRecebimento,
       data.dataRecebimentoEsperado,
-      data.tipoReceitaId,
       data.descricao,
+      data.tipoReceitaId,
       data.valorReceita,
       data.contaId
-      )
+    )
     return response.send(conta)
   }
 }

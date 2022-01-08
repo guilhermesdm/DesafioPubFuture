@@ -19,6 +19,18 @@ export default class ContaService {
     return contas
   }
 
+  public static async listarUm(
+    id: number
+  ){
+    const contas = await Conta
+      .query()
+      .where('id', id)
+      .preload('tipoConta')
+      .preload('despesas')
+      .preload('receitas')
+    return contas
+  }
+
   public static async remove(id: number) {
     await Conta.query().where('id', id).delete()
   }

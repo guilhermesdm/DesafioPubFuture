@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/contas', 'ContasController.index')
+Route.get('/contas/:id', 'ContasController.oneIndex')
 Route.post('/contas', 'ContasController.store')
 Route.delete('/contas/:id', 'ContasController.destroy')
 Route.put('/contas/:id', 'ContasController.update' )
