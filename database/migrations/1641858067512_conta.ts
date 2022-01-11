@@ -7,7 +7,7 @@ export default class Conta extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary().notNullable()
       table.float('saldo').notNullable()
-      table.string('instiuicao').notNullable()
+      table.string('instituicao').notNullable()
       table.integer('tipo_conta_id').references('id').inTable('tipo_conta').notNullable().unsigned()
     })
   }
