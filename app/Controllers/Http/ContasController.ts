@@ -11,6 +11,11 @@ export default class ContasController {
     return response.send(conta)
   }
 
+  public async getTotal({ response }: HttpContextContract) {
+    const valorTotal = await ContaService.total()
+    return response.send({valorTotal})
+  }
+
   public async index({ response }: HttpContextContract) {
     const contas = await ContaService.listar()
     return response.send(contas)

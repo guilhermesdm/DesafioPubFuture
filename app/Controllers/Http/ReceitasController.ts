@@ -22,6 +22,11 @@ export default class ReceitasController {
     return response.send(receita)
   }
 
+  public async getTotal({ response }: HttpContextContract) {
+    const valorTotal = await ReceitaService.total()
+    return response.send({valorTotal})
+  }
+
   public async index({ request, response }: HttpContextContract) {
     const { dataInicial, dataFinal, tipoReceita } = request.qs()
     const receitas = await ReceitaService.listar(dataInicial, dataFinal, tipoReceita)

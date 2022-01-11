@@ -24,6 +24,15 @@ export default class DespesaService {
     return despesa
   }
 
+  public static async total() {
+    let valorTotal = 0
+    const despesas = await Despesa.all()
+    despesas.forEach(despesa => {
+      valorTotal += despesa.valorDespesa
+    });
+    return valorTotal
+  }
+
   public static async listar(
     dataInicial: Date,
     dataFinal: Date,

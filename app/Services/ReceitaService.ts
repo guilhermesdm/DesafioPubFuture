@@ -26,6 +26,15 @@ export default class ReceitaService {
     return receita
   }
 
+  public static async total() {
+    let valorTotal = 0
+    const receitas = await Receita.all()
+    receitas.forEach(receita => {
+      valorTotal += receita.valorReceita
+    });
+    return valorTotal
+  }
+
   public static async listar(
     dataInicial: Date,
     dataFinal: Date,

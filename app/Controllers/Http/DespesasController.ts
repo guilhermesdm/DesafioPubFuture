@@ -20,6 +20,11 @@ export default class DespesasController {
     return response.send(despesa)
   }
 
+  public async getTotal({ response }: HttpContextContract) {
+    const valorTotal = await DespesaService.total()
+    return response.send({valorTotal})
+  }
+
   public async index({ request, response }: HttpContextContract) {
     const { dataInicial, dataFinal, tipoDespesa } = request.qs()
     const despesas = await DespesaService.listar(dataInicial, dataFinal, tipoDespesa)

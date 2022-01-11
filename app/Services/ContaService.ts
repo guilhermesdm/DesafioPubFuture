@@ -19,6 +19,15 @@ export default class ContaService {
     return contas
   }
 
+  public static async total() {
+    let valorTotal = 0
+    const saldoConta = await Conta.all()
+    saldoConta.forEach(conta => {
+      valorTotal += conta.saldo
+    });
+    return valorTotal
+  }
+
   public static async listarUm(
     id: number
   ){

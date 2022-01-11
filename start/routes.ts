@@ -21,6 +21,7 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/contas', 'ContasController.index')
+Route.get('/contas/total', 'ContasController.getTotal' )
 Route.get('/contas/:id', 'ContasController.oneIndex')
 Route.post('/contas', 'ContasController.store')
 Route.delete('/contas/:id', 'ContasController.destroy')
@@ -31,8 +32,11 @@ Route.post('/receitas', 'ReceitasController.store')
 Route.get('/receitas', 'ReceitasController.index')
 Route.delete('/receitas/:id', 'ReceitasController.destroy')
 Route.put('/receitas/:id', 'ReceitasController.update')
+Route.get('/receitas/total', 'ReceitasController.getTotal' )
 
 Route.get('/despesas', 'DespesasController.index')
 Route.post('/despesas', 'DespesasController.store')
 Route.delete('/despesas/:id', 'DespesasController.destroy')
 Route.put('/despesas/:id', 'DespesasController.update')
+Route.get('/despesas/total', 'DespesasController.getTotal' )
+
